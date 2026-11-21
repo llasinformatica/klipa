@@ -1,0 +1,28 @@
+# ARQUIVO 6 · netlify.toml · raiz
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["ffmpeg-static", "@distube/ytdl-core"]
+  included_files = ["node_modules/ffmpeg-static/ffmpeg"]
+
+[functions.transcribe]
+  timeout = 10
+[functions.transcribe-status]
+  timeout = 10
+[functions.transcribe-background]
+  timeout = 900
+[functions.ai]
+  timeout = 26
+[functions.render]
+  timeout = 26
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
